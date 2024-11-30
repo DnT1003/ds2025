@@ -12,8 +12,8 @@ ADDR = (HOST, PORT)
 def handle_download(conn: socket, data: str):
     file = data.split('_')
     FILENAME = file[1]
-
-    file_path = f"D:\\Red-Team\\Write-Up\\Client_Server\\Upload_Download_Server_Client\\Server\\File_storage\\{FILENAME}"
+    
+    file_path = f"D:\\Android Studio\\mobile\\Distribute_System\\ds2025\\Client_Server\\Upload_Download_Server_Client\\Server\\File_storage\\{FILENAME}"
     if os.path.isfile(file_path):
         conn.send("File exists".encode(FORMAT))
 

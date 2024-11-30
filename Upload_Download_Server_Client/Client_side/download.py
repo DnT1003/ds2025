@@ -26,7 +26,7 @@ def download_file(filename):
         file_name.replace("/.\,.", " ")
         print(f'[+] File name: {file_name}\n[+] File size: {file_size} Bytes')
 
-        download_file_path = os.path.join("D:\\Red-Team\\Write-Up\\Client_Server\\Upload_Download_Server_Client"
+        download_file_path = os.path.join("D:\\Android Studio\\mobile\\ds2025\\Client_Server\\Upload_Download_Server_Client"
                                           "\\Download_File\\",
                                           filename)
         bar = tqdm(total=file_size, desc=f"[+] Receiving {filename}", unit="B", unit_scale=True, unit_divisor=SIZE)
