@@ -5,7 +5,7 @@
 
 - Clone Repo về máy
 ```powershell
-git clone https://github.com/Dtrugk/ds2025.git
+git clone https://github.com/DnT1003/ds2025.git
 cd ds2025
 ```
 
