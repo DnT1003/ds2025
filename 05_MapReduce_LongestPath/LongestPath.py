@@ -1,18 +1,11 @@
 import os
 
-# Meanwhile my actually path in folder look like: User\Desktop\...
-# But, the Practical telling to find '/', so the path look like: User/Desktop/...
-# If '\' then '/' -> '\\'
 
 def count_slashes(path):
-    # Count the number of '/' characters in a given file path.
     return path.count('/')
-
 def count_components(path):
-    # Count the number of components in a given file path.    
-    # Split the path by '/' and remove empty components
+
     components = path.strip().split('/')
-    # Remove empty components caused by leading'/'trailing slashes
     components = [x for x in components if x]
     return len(components)
 
@@ -57,7 +50,6 @@ def find_longest_paths(input_files):
     return longest_paths, max_slash_count, max_component_count
 
 def main():
-    # List of input files contain file's paths
     input_files = ["laptop1.txt", "laptop2.txt", "laptop3.txt"]
 
     longest_paths, max_slash_count, max_component_count = find_longest_paths(input_files)
