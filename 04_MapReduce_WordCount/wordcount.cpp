@@ -12,7 +12,7 @@
 
 std::mutex mutex;
 
-// Function to split a string into words
+
 std::vector<std::string> split(const std::string &text) {
     std::istringstream stream(text);
     std::vector<std::string> words;
@@ -26,7 +26,7 @@ std::vector<std::string> split(const std::string &text) {
     return words;
 }
 
-// Map function to count words in a chunk of text
+
 void mapFunction(const std::string &chunk, std::map<std::string, int> &localWordCount) {
     auto words = split(chunk);
     for (const auto &word : words) {
@@ -42,7 +42,7 @@ void reduceFunction(const std::map<std::string, int> &localWordCount, std::map<s
 }
 
 int main() {
-    // Read input text from a file
+    
     std::ifstream inputFile("input.txt");
     if (!inputFile) {
         std::cerr << "Failed to open input file." << std::endl;
@@ -53,9 +53,7 @@ int main() {
     buffer << inputFile.rdbuf();
     std::string text = buffer.str();
 
-    // Split text into chunks (for simplicity, fixed chunk size)
-    // size_t chunkSize = 1024; // For short
-    // size_t chunkSize = 4.6 * 1024 * 1024 * 8; // For Bible 
+
     size_t chunkSize = 4.6 * 1024 * 1024 * 8;
     
     std::vector<std::string> chunks;
@@ -63,7 +61,7 @@ int main() {
         chunks.push_back(text.substr(i, chunkSize));
     }
 
-    // Map phase: process chunks in parallel
+
     std::vector<std::thread> mapThreads;
     std::vector<std::map<std::string, int>> localWordCounts(chunks.size());
 
@@ -75,7 +73,7 @@ int main() {
         thread.join();
     }
 
-    // Reduce phase: combine local word counts
+
     std::map<std::string, int> globalWordCount;
     std::vector<std::thread> reduceThreads;
 
@@ -87,13 +85,13 @@ int main() {
         thread.join();
     }
 
-    // Sort words by count in descending order
+
     std::vector<std::pair<std::string, int>> sortedWordCounts(globalWordCount.begin(), globalWordCount.end());
     std::sort(sortedWordCounts.begin(), sortedWordCounts.end(), [](const auto &a, const auto &b) {
         return b.second < a.second;
     });
 
-    // Output the total word count
+
     int totalWords = 0;
     for (const auto &entry : globalWordCount) {
         totalWords += entry.second;
