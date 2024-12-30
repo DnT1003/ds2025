@@ -17,10 +17,8 @@ def send_file(filename, comm, dest_rank):
             file_data = f.read()
             encoded_data = base64.b64encode(file_data).decode('utf-8')
 
-        # Notify the client the file is available
         comm.send("OK", dest=dest_rank, tag=0)
 
-        # Send filename first, then the data
         comm.send(filename, dest=dest_rank, tag=1)
         comm.send(encoded_data, dest=dest_rank, tag=2)
         print(f"File '{filename}' sent successfully.")
@@ -37,11 +35,9 @@ def receive_file(comm, source_rank):
             print(response)
             return False
 
-        # Receive filename and data
         filename = comm.recv(source=source_rank, tag=1)
         encoded_data = comm.recv(source=source_rank, tag=2)
 
-        # Create client directory if it doesn't exist
         os.makedirs(CLIENT_DIRECTORY, exist_ok=True)
         save_path = os.path.join(CLIENT_DIRECTORY, filename)
 
@@ -89,7 +85,7 @@ def main():
         except ValueError:
             print("Invalid input. Please enter a number.")
 
-    elif rank == 1:  # Receiver process
+    elif rank == 1: 
         os.makedirs(CLIENT_DIRECTORY, exist_ok=True)
         print(f"Process {rank}: Waiting to receive file...")
 
